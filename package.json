@@ -1,0 +1,23 @@
+{
+  "name": "agent-tools",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Agent tooling packages - pi extensions, MCP servers, and more",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/walterra/agent-tools.git"
+  },
+  "author": "walterra",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
