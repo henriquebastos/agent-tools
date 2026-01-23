@@ -1,28 +1,29 @@
 {
-  "name": "@walterra/pi-charts",
+  "name": "@walterra/pi-graphviz",
   "version": "0.0.1",
-  "description": "Vega-Lite chart extension for pi coding agent - render data visualizations as inline images",
+  "description": "Graphviz chart extension for pi coding agent - render DOT diagrams as inline images",
   "type": "module",
   "files": [
     "extensions",
     "README.md"
   ],
   "pi": {
-    "extensions": ["./extensions/vega-chart/index.ts"]
+    "extensions": ["./extensions/graphviz-chart/index.ts"]
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/walterra/agent-tools.git",
-    "directory": "packages/pi-charts"
+    "directory": "packages/pi-graphviz"
   },
   "keywords": [
     "pi",
     "pi-coding-agent",
     "extension",
-    "vega-lite",
-    "charts",
-    "visualization",
-    "data-viz"
+    "graphviz",
+    "dot",
+    "diagrams",
+    "flowcharts",
+    "graphs"
   ],
   "author": "walterra",
   "license": "MIT",
