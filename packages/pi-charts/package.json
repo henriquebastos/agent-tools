@@ -1,0 +1,34 @@
+{
+  "name": "@walterra/pi-charts",
+  "version": "1.0.0",
+  "description": "Vega-Lite chart extension for pi coding agent - render data visualizations as inline images",
+  "type": "module",
+  "pi": {
+    "extensions": ["./extensions/vega-chart/index.ts"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/walterra/agent-tools.git",
+    "directory": "packages/pi-charts"
+  },
+  "keywords": [
+    "pi",
+    "pi-coding-agent",
+    "extension",
+    "vega-lite",
+    "charts",
+    "visualization",
+    "data-viz"
+  ],
+  "author": "walterra",
+  "license": "MIT",
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.32.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
