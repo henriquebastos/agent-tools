@@ -23,7 +23,7 @@ If dependencies cannot be installed, the tool returns an error with instructions
 
 ## Philosophy
 
-> "A visualization is a mapping from data to visual properties. The key insight is that this mapping should be **declarative** rather than imperative."
+At its core, a visualization maps data to visual properties. Instead of specifying step-by-step drawing instructions (imperative), you describe what the visualization should represent (declarative).
 
 Vega-Lite embodies a **grammar of graphics**: you describe _what_ you want to visualize, not _how_ to draw it. This enables:
 
@@ -1588,10 +1588,3 @@ Before finalizing any chart, verify:
 - [Vega-Lite Examples](https://vega.github.io/vega-lite/examples/)
 - [UW Visualization Curriculum](https://idl.uw.edu/visualization-curriculum/intro.html)
 - [Altair Documentation](https://altair-viz.github.io/)
-
-### Visual Design References
-
-- _Sémiologie Graphique_ (1967) — semiotics of graphics, visual variables
-- _The Visual Display of Quantitative Information_ (1983) — data-ink ratio, minimalist approach
-- _The Functional Art_, _How Charts Lie_ — clarity over minimalism, communicative approach
-- _Visualization Analysis and Design_ (2014) — systematic approach to visualization design
