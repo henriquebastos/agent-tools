@@ -5,16 +5,10 @@ Graphviz DOT diagram extension for [pi coding agent](https://github.com/badlogic
 ## Installation
 
 ```bash
-pi install @walterra/pi-graphviz
+pi install npm:@walterra/pi-graphviz
 ```
 
-Or add to your pi config manually:
-
-```bash
-npm install @walterra/pi-graphviz
-```
-
-Then in your pi config, add the extension path.
+This installs the package globally and adds it to your pi settings.
 
 ## Features
 

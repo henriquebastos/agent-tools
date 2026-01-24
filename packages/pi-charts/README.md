@@ -5,16 +5,10 @@ Vega-Lite chart extension for [pi coding agent](https://github.com/badlogic/pi-m
 ## Installation
 
 ```bash
-pi install @walterra/pi-charts
+pi install npm:@walterra/pi-charts
 ```
 
-Or add to your pi config manually:
-
-```bash
-npm install @walterra/pi-charts
-```
-
-Then in your pi config, add the extension path.
+This installs the package globally and adds it to your pi settings.
 
 ## Features
 
