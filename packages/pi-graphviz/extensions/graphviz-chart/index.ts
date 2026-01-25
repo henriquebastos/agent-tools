@@ -13,18 +13,18 @@
  * - Network topologies
  */
 
-import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
-import { Type } from '@sinclair/typebox';
 import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
+import { Type } from '@sinclair/typebox';
 
 // Compute reference path using ESM import.meta.url
 const GRAPHVIZ_REFERENCE_PATH = join(
   dirname(fileURLToPath(import.meta.url)),
-  'graphviz-reference.md',
+  'graphviz-reference.md'
 );
 
 export default function (pi: ExtensionAPI) {
@@ -81,23 +81,23 @@ Reference: https://graphviz.org/doc/info/lang.html`,
         Type.String({
           description:
             'Layout engine: dot (hierarchical, default), neato (spring), fdp (force-directed), circo (circular), twopi (radial)',
-        }),
+        })
       ),
       width: Type.Optional(
         Type.Number({
           description: 'Output width in pixels (default: auto based on graph)',
-        }),
+        })
       ),
       height: Type.Optional(
         Type.Number({
           description: 'Output height in pixels (default: auto based on graph)',
-        }),
+        })
       ),
       save_path: Type.Optional(
         Type.String({
           description:
             'Optional file path to save the chart. Format determined by extension: .svg for SVG, .png for PNG (default)',
-        }),
+        })
       ),
     }),
 

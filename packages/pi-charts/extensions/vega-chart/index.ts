@@ -10,13 +10,13 @@
  * - Data-driven: Inline data or separate TSV input
  */
 
-import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
-import { Type } from '@sinclair/typebox';
 import { execSync } from 'node:child_process';
 import { readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import type { ExtensionAPI } from '@mariozechner/pi-coding-agent';
+import { Type } from '@sinclair/typebox';
 
 // Compute reference path using ESM import.meta.url
 const VEGA_REFERENCE_PATH = join(dirname(fileURLToPath(import.meta.url)), 'vega-lite-reference.md');
@@ -72,14 +72,14 @@ Reference: https://vega.github.io/vega-lite/docs/`,
       tsv_data: Type.Optional(
         Type.String({
           description: 'Optional TSV data - if provided, replaces spec.data.values',
-        }),
+        })
       ),
       width: Type.Optional(Type.Number({ description: 'Chart width in pixels (default: 600)' })),
       height: Type.Optional(Type.Number({ description: 'Chart height in pixels (default: 400)' })),
       save_path: Type.Optional(
         Type.String({
           description: 'Optional file path to save the PNG chart (in addition to displaying it)',
-        }),
+        })
       ),
     }),
 
@@ -239,7 +239,7 @@ print('OK')
             encoding: 'utf-8',
             timeout: 60000, // Longer timeout for first run when uv downloads packages
             maxBuffer: 10 * 1024 * 1024,
-          },
+          }
         );
 
         if (!result.includes('OK')) {

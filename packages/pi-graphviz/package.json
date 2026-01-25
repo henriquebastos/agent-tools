@@ -8,7 +8,9 @@
     "README.md"
   ],
   "pi": {
-    "extensions": ["./extensions/graphviz-chart/index.ts"]
+    "extensions": [
+      "./extensions/graphviz-chart/index.ts"
+    ]
   },
   "repository": {
     "type": "git",
