@@ -18,6 +18,7 @@
     "directory": "packages/pi-graphviz"
   },
   "keywords": [
+    "pi-package",
     "pi",
     "pi-coding-agent",
     "extension",

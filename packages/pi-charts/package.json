@@ -18,6 +18,7 @@
     "directory": "packages/pi-charts"
   },
   "keywords": [
+    "pi-package",
     "pi",
     "pi-coding-agent",
     "extension",
