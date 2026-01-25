@@ -1,6 +1,6 @@
 # Vega-Lite Visualization Reference
 
-A comprehensive reference for creating data visualizations using Vega-Lite specifications. This guide follows best practices from the [UW Interactive Data Lab Visualization Curriculum](https://idl.uw.edu/visualization-curriculum/intro.html) and established visualization research.
+Reference for creating data visualizations using Vega-Lite specifications. This guide follows best practices from the [UW Interactive Data Lab Visualization Curriculum](https://idl.uw.edu/visualization-curriculum/intro.html) and established visualization research.
 
 ## Prerequisites
 
@@ -648,7 +648,12 @@ Control how scales/axes/legends are shared or independent.
   },
   "mark": { "type": "bar", "cornerRadius": 3 },
   "encoding": {
-    "x": { "field": "month", "type": "ordinal", "title": null, "axis": { "labelAngle": 0 } },
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "title": null,
+      "axis": { "labelAngle": 0 }
+    },
     "y": {
       "field": "revenue",
       "type": "quantitative",
@@ -664,7 +669,11 @@ Control how scales/axes/legends are shared or independent.
 ```json
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": { "text": "Daily Temperature", "subtitle": "December 2025", "anchor": "start" },
+  "title": {
+    "text": "Daily Temperature",
+    "subtitle": "December 2025",
+    "anchor": "start"
+  },
   "width": 600,
   "height": 200,
   "data": {
@@ -679,14 +688,26 @@ Control how scales/axes/legends are shared or independent.
   "layer": [
     { "mark": { "type": "area", "opacity": 0.2, "color": "#e45756" } },
     { "mark": { "type": "line", "color": "#e45756", "strokeWidth": 2 } },
-    { "mark": { "type": "point", "color": "#e45756", "filled": true, "size": 50 } },
+    {
+      "mark": {
+        "type": "point",
+        "color": "#e45756",
+        "filled": true,
+        "size": 50
+      }
+    },
     {
       "mark": { "type": "rule", "strokeDash": [4, 4], "color": "#999" },
       "encoding": { "y": { "datum": 20 } }
     }
   ],
   "encoding": {
-    "x": { "field": "date", "type": "temporal", "title": null, "axis": { "format": "%b %d" } },
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "title": null,
+      "axis": { "format": "%b %d" }
+    },
     "y": {
       "field": "temp",
       "type": "quantitative",
@@ -718,11 +739,21 @@ Control how scales/axes/legends are shared or independent.
   },
   "layer": [
     {
-      "mark": { "type": "line", "strokeWidth": 2.5, "point": { "filled": true, "size": 50 } }
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5,
+        "point": { "filled": true, "size": 50 }
+      }
     },
     {
       "transform": [{ "filter": "datum.date == '2025-03'" }],
-      "mark": { "type": "text", "align": "left", "dx": 8, "fontSize": 12, "fontWeight": "bold" },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
       "encoding": { "text": { "field": "team" } }
     }
   ],
@@ -824,7 +855,12 @@ Control how scales/axes/legends are shared or independent.
   "mark": "bar",
   "encoding": {
     "x": { "field": "month", "type": "ordinal", "title": null },
-    "y": { "field": "sales", "type": "quantitative", "stack": "zero", "title": "Sales" },
+    "y": {
+      "field": "sales",
+      "type": "quantitative",
+      "stack": "zero",
+      "title": "Sales"
+    },
     "color": { "field": "category", "type": "nominal", "title": null }
   }
 }
@@ -961,14 +997,22 @@ Use sorted bar chart instead - see "Never Use Pie or Donut Charts" in Best Pract
       "mark": "bar",
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
-        "y": { "field": "precipitation", "type": "quantitative", "title": "Precipitation (mm)" }
+        "y": {
+          "field": "precipitation",
+          "type": "quantitative",
+          "title": "Precipitation (mm)"
+        }
       }
     },
     {
       "mark": { "type": "line", "color": "firebrick" },
       "encoding": {
         "x": { "field": "date", "type": "temporal" },
-        "y": { "field": "temperature", "type": "quantitative", "title": "Temperature (°C)" }
+        "y": {
+          "field": "temperature",
+          "type": "quantitative",
+          "title": "Temperature (°C)"
+        }
       }
     }
   ],
@@ -1108,7 +1152,12 @@ Legends force eye movement. Label directly on the chart:
       "encoding": { "color": { "field": "series", "legend": null } }
     },
     {
-      "mark": { "type": "text", "align": "left", "dx": 8, "fontWeight": "bold" },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "fontWeight": "bold"
+      },
       "transform": [{ "filter": "datum.date == '2025-12-29'" }],
       "encoding": {
         "x": { "field": "date", "type": "temporal" },

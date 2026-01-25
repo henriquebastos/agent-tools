@@ -23,13 +23,13 @@ Renders a Vega-Lite specification as a PNG image.
 
 ### Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `spec` | string | ✅ | Vega-Lite JSON specification |
-| `tsv_data` | string | | Optional TSV data to replace spec.data.values |
-| `width` | number | | Chart width in pixels (default: 600) |
-| `height` | number | | Chart height in pixels (default: 400) |
-| `save_path` | string | | Optional file path to save the PNG |
+| Parameter   | Type   | Required | Description                                   |
+| ----------- | ------ | -------- | --------------------------------------------- |
+| `spec`      | string | ✅       | Vega-Lite JSON specification                  |
+| `tsv_data`  | string |          | Optional TSV data to replace spec.data.values |
+| `width`     | number |          | Chart width in pixels (default: 600)          |
+| `height`    | number |          | Chart height in pixels (default: 400)         |
+| `save_path` | string |          | Optional file path to save the PNG            |
 
 ### Example
 
@@ -38,22 +38,22 @@ Renders a Vega-Lite specification as a PNG image.
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {
     "values": [
-      {"category": "A", "value": 28},
-      {"category": "B", "value": 55},
-      {"category": "C", "value": 43}
+      { "category": "A", "value": 28 },
+      { "category": "B", "value": 55 },
+      { "category": "C", "value": 43 }
     ]
   },
   "mark": "bar",
   "encoding": {
-    "x": {"field": "category", "type": "nominal"},
-    "y": {"field": "value", "type": "quantitative"}
+    "x": { "field": "category", "type": "nominal" },
+    "y": { "field": "value", "type": "quantitative" }
   }
 }
 ```
 
 ## Reference Documentation
 
-See [vega-lite-reference.md](./extensions/vega-chart/vega-lite-reference.md) for comprehensive documentation on:
+See [vega-lite-reference.md](./extensions/vega-chart/vega-lite-reference.md) for documentation on:
 
 - Data types and encoding channels
 - All mark types and properties

@@ -4,10 +4,10 @@ Agent tooling packages - pi extensions, MCP servers, and more.
 
 ## Packages
 
-| Package                                         | Description                           | Install                                  |
-| ----------------------------------------------- | ------------------------------------- | ---------------------------------------- |
-| [@walterra/pi-charts](./packages/pi-charts)     | Vega-Lite chart extension for pi      | `pi install npm:@walterra/pi-charts`     |
-| [@walterra/pi-graphviz](./packages/pi-graphviz) | Graphviz DOT diagram extension for pi | `pi install npm:@walterra/pi-graphviz`   |
+| Package                                         | Description                           | Install                                |
+| ----------------------------------------------- | ------------------------------------- | -------------------------------------- |
+| [@walterra/pi-charts](./packages/pi-charts)     | Vega-Lite chart extension for pi      | `pi install npm:@walterra/pi-charts`   |
+| [@walterra/pi-graphviz](./packages/pi-graphviz) | Graphviz DOT diagram extension for pi | `pi install npm:@walterra/pi-graphviz` |
 
 ## Package Naming Convention
 

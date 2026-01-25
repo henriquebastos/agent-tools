@@ -24,13 +24,13 @@ Renders a Graphviz DOT specification as a PNG image.
 
 ### Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `dot` | string | ✅ | Graphviz DOT specification |
-| `engine` | string | | Layout engine: dot (default), neato, fdp, circo, twopi |
-| `width` | number | | Output width in pixels |
-| `height` | number | | Output height in pixels |
-| `save_path` | string | | Optional file path (.png or .svg) |
+| Parameter   | Type   | Required | Description                                            |
+| ----------- | ------ | -------- | ------------------------------------------------------ |
+| `dot`       | string | ✅       | Graphviz DOT specification                             |
+| `engine`    | string |          | Layout engine: dot (default), neato, fdp, circo, twopi |
+| `width`     | number |          | Output width in pixels                                 |
+| `height`    | number |          | Output height in pixels                                |
+| `save_path` | string |          | Optional file path (.png or .svg)                      |
 
 ### Example
 
@@ -38,11 +38,11 @@ Renders a Graphviz DOT specification as a PNG image.
 digraph G {
     rankdir=LR;
     node [shape=box style="rounded,filled" fillcolor=lightblue];
-    
+
     A [label="Start"];
     B [label="Process"];
     C [label="End" fillcolor=lightgreen];
-    
+
     A -> B [label="step 1"];
     B -> C [label="step 2"];
 }
@@ -59,7 +59,7 @@ digraph G {
 
 ## Reference Documentation
 
-See [graphviz-reference.md](./extensions/graphviz-chart/graphviz-reference.md) for comprehensive documentation on:
+See [graphviz-reference.md](./extensions/graphviz-chart/graphviz-reference.md) for documentation on:
 
 - DOT language syntax
 - All node shapes and edge styles
