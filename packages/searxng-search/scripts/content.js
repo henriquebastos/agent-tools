@@ -51,7 +51,7 @@ async function fetchPageContent(url) {
   const reader = new Readability(dom.window.document);
   const article = reader.parse();
 
-  if (article && article.content) {
+  if (article?.content) {
     return {
       title: article.title,
       content: htmlToMarkdown(article.content),
@@ -62,9 +62,9 @@ async function fetchPageContent(url) {
   const fallbackDoc = new JSDOM(html, { url });
   const body = fallbackDoc.window.document;
   const title = body.querySelector('title')?.textContent || url;
-  body
-    .querySelectorAll('script, style, noscript, nav, header, footer, aside')
-    .forEach((el) => el.remove());
+  body.querySelectorAll('script, style, noscript, nav, header, footer, aside').forEach((el) => {
+    el.remove();
+  });
   const main = body.querySelector("main, article, [role='main'], .content, #content") || body.body;
   const text = main?.textContent || '';
 

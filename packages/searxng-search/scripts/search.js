@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
+import fs from 'node:fs';
 import { Readability } from '@mozilla/readability';
 import { JSDOM } from 'jsdom';
 import TurndownService from 'turndown';
@@ -107,16 +107,16 @@ async function fetchPageContent(url) {
     const reader = new Readability(dom.window.document);
     const article = reader.parse();
 
-    if (article && article.content) {
+    if (article?.content) {
       return htmlToMarkdown(article.content).substring(0, 5000);
     }
 
     // Fallback: try to get main content
     const fallbackDoc = new JSDOM(html, { url });
     const body = fallbackDoc.window.document;
-    body
-      .querySelectorAll('script, style, noscript, nav, header, footer, aside')
-      .forEach((el) => el.remove());
+    body.querySelectorAll('script, style, noscript, nav, header, footer, aside').forEach((el) => {
+      el.remove();
+    });
     const main =
       body.querySelector("main, article, [role='main'], .content, #content") || body.body;
     const text = main?.textContent || '';
