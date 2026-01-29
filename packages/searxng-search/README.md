@@ -13,9 +13,15 @@ Compatible with [Cursor](https://cursor.com), [Claude Code](https://claude.ai), 
 
 ### Quick SearXNG Setup
 
+The JSON API must be enabled (disabled by default). This skill includes a `settings.yml` that enables it:
+
 ```bash
-docker run -d -p 8080:8080 searxng/searxng
+docker run -d -p 8080:8080 --name searxng \
+  -v $(pwd)/searxng/settings.yml:/etc/searxng/settings.yml:ro \
+  searxng/searxng
 ```
+
+> **Important:** Without the custom settings, the JSON API returns HTTP 403 Forbidden.
 
 ## Installation
 

@@ -18,12 +18,20 @@ Local web search using SearXNG metasearch engine. No external API keys required.
 
 ### Quick SearXNG Setup
 
+The JSON API must be enabled in SearXNG settings (it's disabled by default).
+This skill includes a pre-configured `settings.yml` that enables it.
+
 ```bash
-# Using Docker (recommended)
-docker run -d -p 8080:8080 searxng/searxng
+# Using Docker (recommended) - mount the included settings to enable JSON API
+docker run -d -p 8080:8080 --name searxng \
+  -v {baseDir}/searxng/settings.yml:/etc/searxng/settings.yml:ro \
+  searxng/searxng
 
 # Or see https://docs.searxng.org/admin/installation.html
 ```
+
+> **Note:** The default SearXNG image only enables HTML format. Without the
+> custom settings, the JSON API will return HTTP 403 Forbidden.
 
 ## Setup
 
@@ -133,7 +141,20 @@ Markdown content of the page...
 
 SearXNG is not running. Start it with:
 ```bash
-docker run -d -p 8080:8080 searxng/searxng
+docker run -d -p 8080:8080 --name searxng \
+  -v {baseDir}/searxng/settings.yml:/etc/searxng/settings.yml:ro \
+  searxng/searxng
+```
+
+### HTTP 403 Forbidden
+
+The JSON API is not enabled. The default SearXNG only allows HTML format.
+Ensure you mount the included `settings.yml` when starting the container:
+```bash
+docker stop searxng && docker rm searxng
+docker run -d -p 8080:8080 --name searxng \
+  -v {baseDir}/searxng/settings.yml:/etc/searxng/settings.yml:ro \
+  searxng/searxng
 ```
 
 ### Custom SearXNG URL

@@ -48,6 +48,18 @@ async function fetchSearXNGResults(query, numResults) {
 
   const response = await fetch(url);
 
+  if (response.status === 403) {
+    throw new Error(
+      'HTTP 403 Forbidden - SearXNG JSON API is not enabled. ' +
+      'The default SearXNG only allows HTML format. ' +
+      'Restart the container with the included settings.yml mounted:\n' +
+      '  docker stop searxng && docker rm searxng\n' +
+      '  docker run -d -p 8080:8080 --name searxng \\\n' +
+      '    -v <skill-dir>/searxng/settings.yml:/etc/searxng/settings.yml:ro \\\n' +
+      '    searxng/searxng'
+    );
+  }
+
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }

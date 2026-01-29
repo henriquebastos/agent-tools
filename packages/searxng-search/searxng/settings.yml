@@ -1,0 +1,12 @@
+# SearXNG settings for agent skill usage
+# Enables JSON API required by the search scripts
+use_default_settings: true
+
+search:
+  formats:
+    - html
+    - json
+
+server:
+  limiter: false
+  secret_key: "searxng-local-dev-key"
