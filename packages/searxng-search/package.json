@@ -1,0 +1,13 @@
+{
+  "name": "searxng-search",
+  "version": "0.0.1",
+  "description": "Agent skill for web search and content extraction via SearXNG. No API keys, no rate limits, privacy-preserving.",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@mozilla/readability": "^0.5.0",
+    "jsdom": "^26.0.0",
+    "turndown": "^7.2.0",
+    "turndown-plugin-gfm": "^1.0.2"
+  }
+}
