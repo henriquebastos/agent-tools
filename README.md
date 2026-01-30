@@ -17,6 +17,7 @@ Universal agent skills compatible with Cursor, Claude Code, Codex, Pi, and other
 
 | Skill | Description |
 |-------|-------------|
+| [git-commit](./packages/git-commit) | Commit staged files with precise messages, safe pre-commit hook handling |
 | [searxng-search](./packages/searxng-search) | Web search via SearXNG - no API keys, no rate limits |
 
 ## Install Skills
@@ -25,19 +26,19 @@ Universal agent skills compatible with Cursor, Claude Code, Codex, Pi, and other
 
 ```bash
 # Using npx skills (Vercel)
+npx skills add walterra/agent-tools --skill git-commit
 npx skills add walterra/agent-tools --skill searxng-search
-
-# Using add-skill
-npx add-skill walterra/agent-tools --skill searxng-search
 
 # Using ai-agent-skills
 npx ai-agent-skills install walterra/agent-tools
 
 # Install to specific agents
+npx skills add walterra/agent-tools --skill git-commit -a cursor -a claude-code
 npx skills add walterra/agent-tools --skill searxng-search -a cursor -a claude-code
 ```
 
-After installing, run setup in the skill directory:
+Some skills require setup after installation (e.g. `npm install` for skills with dependencies).
+`git-commit` is pure markdown and needs no setup. For `searxng-search`:
 
 ```bash
 cd ~/.cursor/skills/searxng-search && npm install
