@@ -120,6 +120,23 @@ Reference: https://graphviz.org/doc/info/lang.html`,
         return { content: [{ type: 'text', text: 'Cancelled' }], details: {} };
       }
 
+      const getErrorMessage = (err: unknown): string => {
+        if (err instanceof Error) return err.message;
+        if (typeof err === 'string') return err;
+        if (err && typeof err === 'object' && 'message' in err) {
+          return String((err as { message?: unknown }).message);
+        }
+        return 'Unknown error';
+      };
+
+      const getErrorStderr = (err: unknown): string | undefined => {
+        if (err && typeof err === 'object' && 'stderr' in err) {
+          const stderr = (err as { stderr?: unknown }).stderr;
+          return typeof stderr === 'string' ? stderr : undefined;
+        }
+        return undefined;
+      };
+
       // Validate engine
       const validEngines = ['dot', 'neato', 'fdp', 'sfdp', 'circo', 'twopi', 'osage', 'patchwork'];
       if (!validEngines.includes(engine)) {
@@ -243,8 +260,8 @@ Reference: https://graphviz.org/doc/info/lang.html`,
             timeout: 30000,
             maxBuffer: 10 * 1024 * 1024,
           });
-        } catch (execError: any) {
-          const errorMsg = execError.stderr || execError.message;
+        } catch (execError: unknown) {
+          const errorMsg = getErrorStderr(execError) ?? getErrorMessage(execError);
           // Clean up
           try {
             unlinkSync(tmpDot);
@@ -315,9 +332,9 @@ Reference: https://graphviz.org/doc/info/lang.html`,
             const outputBuffer = readFileSync(tmpOutput);
             writeFileSync(save_path, outputBuffer);
             savedPath = save_path;
-          } catch (saveErr: any) {
+          } catch (saveErr: unknown) {
             // Don't fail the whole operation, just note the error
-            console.error(`Failed to save to ${save_path}: ${saveErr.message}`);
+            console.error(`Failed to save to ${save_path}: ${getErrorMessage(saveErr)}`);
           }
         }
 
@@ -357,10 +374,11 @@ Reference: https://graphviz.org/doc/info/lang.html`,
           content,
           details: { engine, nodeCount, edgeCount, savedPath, format: outputFormat },
         };
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const errorMsg = getErrorMessage(error);
         return {
-          content: [{ type: 'text', text: `Error rendering chart: ${error.message}` }],
-          details: { error: error.message },
+          content: [{ type: 'text', text: `Error rendering chart: ${errorMsg}` }],
+          details: { error: errorMsg },
           isError: true,
         };
       }

@@ -102,6 +102,23 @@ Reference: https://vega.github.io/vega-lite/docs/`,
         return { content: [{ type: 'text', text: 'Cancelled' }], details: {} };
       }
 
+      const getErrorMessage = (err: unknown): string => {
+        if (err instanceof Error) return err.message;
+        if (typeof err === 'string') return err;
+        if (err && typeof err === 'object' && 'message' in err) {
+          return String((err as { message?: unknown }).message);
+        }
+        return 'Unknown error';
+      };
+
+      const getErrorStderr = (err: unknown): string | undefined => {
+        if (err && typeof err === 'object' && 'stderr' in err) {
+          const stderr = (err as { stderr?: unknown }).stderr;
+          return typeof stderr === 'string' ? stderr : undefined;
+        }
+        return undefined;
+      };
+
       try {
         // Check Python and dependencies, auto-install if needed using uv
         const ensureDependencies = (): { success: boolean; error?: string } => {
@@ -159,30 +176,44 @@ Reference: https://vega.github.io/vega-lite/docs/`,
           try {
             execSync(checkCmd, { encoding: 'utf-8', stdio: 'pipe' });
             return { success: true };
-          } catch (err: any) {
+          } catch (err: unknown) {
+            const errorMsg = getErrorMessage(err);
             return {
               success: false,
-              error: `Failed to setup Python environment with uv.\nPlease run manually: uv run --with altair --with pandas --with vl-convert-python python3\n\nError: ${err.message}`,
+              error: `Failed to setup Python environment with uv.\nPlease run manually: uv run --with altair --with pandas --with vl-convert-python python3\n\nError: ${errorMsg}`,
             };
           }
         };
 
         const deps = ensureDependencies();
         if (!deps.success) {
+          const errorText = deps.error ?? 'Dependencies not installed';
           return {
-            content: [{ type: 'text', text: deps.error! }],
+            content: [{ type: 'text', text: errorText }],
             details: { error: 'Dependencies not installed' },
             isError: true,
           };
         }
 
         // Parse and validate the spec
-        let vegaSpec: any;
+        type VegaSpec = {
+          $schema?: string;
+          width?: number;
+          height?: number;
+          data?: { values?: unknown[] };
+          [key: string]: unknown;
+        };
+
+        let vegaSpec: VegaSpec;
         try {
-          vegaSpec = JSON.parse(spec);
+          const parsed = JSON.parse(spec);
+          if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+            throw new Error('Spec must be a JSON object');
+          }
+          vegaSpec = parsed as VegaSpec;
         } catch (e) {
           return {
-            content: [{ type: 'text', text: `Invalid JSON in spec: ${e}` }],
+            content: [{ type: 'text', text: `Invalid JSON in spec: ${getErrorMessage(e)}` }],
             details: { error: 'Invalid JSON' },
             isError: true,
           };
@@ -260,9 +291,9 @@ print('OK')
             mkdirSync(dirname(save_path), { recursive: true });
             copyFileSync(tmpPng, save_path);
             savedPath = save_path;
-          } catch (saveErr: any) {
+          } catch (saveErr: unknown) {
             // Don't fail the whole operation, just note the error
-            console.error(`Failed to save to ${save_path}: ${saveErr.message}`);
+            console.error(`Failed to save to ${save_path}: ${getErrorMessage(saveErr)}`);
           }
         }
 
@@ -279,7 +310,9 @@ print('OK')
 
         const dataPoints = tsv_data
           ? tsv_data.trim().split('\n').length - 1
-          : vegaSpec.data?.values?.length || 0;
+          : Array.isArray(vegaSpec.data?.values)
+            ? vegaSpec.data?.values.length
+            : 0;
 
         const textMsg = savedPath
           ? `Rendered Vega-Lite chart (${dataPoints} data points) - saved to ${savedPath}`
@@ -292,9 +325,9 @@ print('OK')
           ],
           details: { dataPoints, width: vegaSpec.width, height: vegaSpec.height, savedPath },
         };
-      } catch (error: any) {
+      } catch (error: unknown) {
         // Try to extract Python error details
-        const errorMsg = error.stderr || error.message;
+        const errorMsg = getErrorStderr(error) ?? getErrorMessage(error);
         return {
           content: [{ type: 'text', text: `Error rendering chart: ${errorMsg}` }],
           details: { error: errorMsg },
