@@ -2,7 +2,7 @@
 name: git-commit
 description: Commit staged files with a precise, well-crafted commit message. Use when the user asks to commit, make a commit, or says "commit". Handles pre-commit hook failures, lint fixes, and safe re-staging.
 metadata:
-  version: "0.0.1"
+  version: "0.0.2"
   author: walterra
   repository: https://github.com/walterra/agent-tools
 ---
@@ -64,20 +64,25 @@ npm run lint
 
 If auto-fix didn't resolve everything, fix the remaining issues by hand.
 
-### Step 3.3: Re-stage only the original files
+### Step 3.3: Re-stage the original files (with a narrow exception)
 
-**CRITICAL: Only re-stage files from the list captured in Step 1.**
+**CRITICAL: Re-stage only files from the list captured in Step 1 — except for new files that are required to satisfy linting rules.**
 
 ```bash
 git add <file-from-step-1>
 ```
 
-### Step 3.4: Never stage extra files
+If linting/formatting requires refactoring into helper files (e.g., max file length, complexity rules), you **may** stage newly created files **only when**:
+
+- The new files are direct refactors of the originally staged changes, and
+- They are necessary to make linting pass without deleting content or taking shortcuts.
+
+### Step 3.4: Never stage unrelated extra files
 
 - **NEVER** use `git add .` or any bulk staging command.
-- If a formatter or linter modified a file that was **not** in the Step 1 list, leave it unstaged.
+- If a formatter or linter modified a file that was **not** in the Step 1 list **and** is not a required new helper file, leave it unstaged.
 
-**Example:** If only `A.ts` was originally staged, but the formatter also modified `B.ts` (which was unstaged), only re-stage `A.ts`. Leave `B.ts` unstaged.
+**Example:** If only `A.ts` was originally staged, but linting requires extracting utilities into `helpers.ts`, you may stage `helpers.ts` along with `A.ts`. If a formatter also touched `B.ts`, leave `B.ts` unstaged.
 
 ### Step 3.5: Retry the commit
 
