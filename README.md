@@ -29,6 +29,10 @@ Universal agent skills compatible with Cursor, Claude Code, Codex, Pi, and other
 npx skills add walterra/agent-tools --skill git-commit
 npx skills add walterra/agent-tools --skill searxng-search
 
+# Install directly to pi from a subpath (one command)
+npx skills add https://github.com/walterra/agent-tools/tree/main/packages/git-commit -a pi -g
+npx skills add https://github.com/walterra/agent-tools/tree/main/packages/searxng-search -a pi -g
+
 # Using ai-agent-skills
 npx ai-agent-skills install walterra/agent-tools
 
