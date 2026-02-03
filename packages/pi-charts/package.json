@@ -10,7 +10,8 @@
   "pi": {
     "extensions": [
       "./extensions/vega-chart/index.ts"
-    ]
+    ],
+    "video": "https://www.rafelsberger.at/assets/pi-charts-sm-0003.mp4"
   },
   "repository": {
     "type": "git",

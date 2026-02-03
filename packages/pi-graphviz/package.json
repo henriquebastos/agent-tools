@@ -10,7 +10,8 @@
   "pi": {
     "extensions": [
       "./extensions/graphviz-chart/index.ts"
-    ]
+    ],
+    "video": "https://www.rafelsberger.at/assets/pi-graphviz-sm-0001.mp4"
   },
   "repository": {
     "type": "git",
