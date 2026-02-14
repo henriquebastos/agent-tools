@@ -1,0 +1,134 @@
+# ES Transformer - Agent Skill
+
+Stream-based ingestion and transformation of large data files into Elasticsearch. Built on [node-es-transformer](https://github.com/walterra/node-es-transformer).
+
+## Quick Start
+
+### Install
+
+```bash
+# Using npx skills (recommended)
+npx skills add walterra/agent-tools --skill es-transformer
+
+# Or install manually
+git clone https://github.com/walterra/agent-tools.git
+cp -r agent-tools/packages/es-transformer ~/.cursor/skills/
+cd ~/.cursor/skills/es-transformer && npm install
+```
+
+### Basic Usage
+
+```bash
+# Ingest a JSON file
+~/.cursor/skills/es-transformer/scripts/ingest.js --file data.json --target my-index
+
+# Ingest a CSV file
+~/.cursor/skills/es-transformer/scripts/ingest.js --file data.csv --source-format csv --target my-index
+
+# Reindex with transformation
+~/.cursor/skills/es-transformer/scripts/ingest.js \
+  --source-index old-logs \
+  --target new-logs \
+  --transform transform.js
+
+# Cross-version migration (ES 8.x → 9.x)
+~/.cursor/skills/es-transformer/scripts/ingest.js \
+  --source-index logs \
+  --node https://es8.example.com:9200 --api-key $ES8_KEY \
+  --target new-logs \
+  --target-node https://es9.example.com:9200 --target-api-key $ES9_KEY
+```
+
+## Features
+
+- ✅ Handle large files (20-30 GB) without memory issues
+- ✅ High throughput (up to 20k docs/second)
+- ✅ Cross-version migration (ES 8.x ↔ 9.x)
+- ✅ CSV + NDJSON support (node-es-transformer >= 1.1.0)
+- ✅ Custom JavaScript transformations
+- ✅ Document filtering and splitting
+- ✅ Wildcard file patterns
+- ✅ Stream-based processing
+
+## Documentation
+
+See [SKILL.md](./SKILL.md) for complete documentation, examples, and troubleshooting.
+
+## Examples
+
+### Ingest with Custom Mappings
+
+```bash
+cat > mappings.json << 'EOF'
+{
+  "properties": {
+    "@timestamp": { "type": "date" },
+    "user": { "type": "keyword" },
+    "message": { "type": "text" }
+  }
+}
+EOF
+
+./scripts/ingest.js --file logs.json --target logs --mappings mappings.json
+```
+
+### Infer mappings/pipeline (CSV)
+
+```bash
+./scripts/ingest.js --file users.csv --source-format csv --infer-mappings --target users
+```
+
+### Transform During Ingestion
+
+```bash
+cat > transform.js << 'EOF'
+export default function transform(doc) {
+  return {
+    ...doc,
+    full_name: `${doc.first_name} ${doc.last_name}`,
+    processed_at: new Date().toISOString(),
+  };
+}
+EOF
+
+./scripts/ingest.js --file users.json --target users --transform transform.js
+```
+
+### Filter and Reindex
+
+```bash
+cat > filter.json << 'EOF'
+{
+  "range": {
+    "@timestamp": {
+      "gte": "2024-01-01"
+    }
+  }
+}
+EOF
+
+./scripts/ingest.js \
+  --source-index all-logs \
+  --target recent-logs \
+  --query filter.json
+```
+
+## Agent Directories
+
+| Agent | Install Path |
+|-------|--------------|
+| Cursor | `~/.cursor/skills/es-transformer` |
+| Claude Code | `~/.claude/skills/es-transformer` |
+| Codex | `~/.codex/skills/es-transformer` |
+| Pi | `~/.pi/agent/skills/es-transformer` |
+| Copilot | `~/.copilot/skills/es-transformer` |
+
+## Requirements
+
+- Node.js 22+
+- Elasticsearch 8.x or 9.x
+- node-es-transformer >= 1.1.0 for CSV support
+
+## License
+
+MIT
