@@ -17,6 +17,7 @@ Universal agent skills compatible with Cursor, Claude Code, Codex, Pi, and other
 
 | Skill | Description |
 |-------|-------------|
+| [es-ingest](./packages/es-ingest) | Ingest and transform large data files (CSV/JSON) into Elasticsearch indices - stream-based, cross-version migration (ES 8.x ↔ 9.x) |
 | [git-commit](./packages/git-commit) | Commit staged files with precise messages, safe pre-commit hook handling |
 | [post-mortem](./packages/post-mortem) | Analyze chat sessions to improve project rules and skills |
 | [searxng-search](./packages/searxng-search) | Web search via SearXNG - no API keys, no rate limits |
@@ -27,11 +28,13 @@ Universal agent skills compatible with Cursor, Claude Code, Codex, Pi, and other
 
 ```bash
 # Using npx skills (Vercel)
+npx skills add walterra/agent-tools --skill es-ingest
 npx skills add walterra/agent-tools --skill git-commit
 npx skills add walterra/agent-tools --skill post-mortem
 npx skills add walterra/agent-tools --skill searxng-search
 
 # Install directly to pi from a subpath (one command)
+npx skills add https://github.com/walterra/agent-tools/tree/main/packages/es-ingest -a pi -g
 npx skills add https://github.com/walterra/agent-tools/tree/main/packages/git-commit -a pi -g
 npx skills add https://github.com/walterra/agent-tools/tree/main/packages/post-mortem -a pi -g
 npx skills add https://github.com/walterra/agent-tools/tree/main/packages/searxng-search -a pi -g
@@ -40,15 +43,17 @@ npx skills add https://github.com/walterra/agent-tools/tree/main/packages/searxn
 npx ai-agent-skills install walterra/agent-tools
 
 # Install to specific agents
+npx skills add walterra/agent-tools --skill es-ingest -a cursor -a claude-code
 npx skills add walterra/agent-tools --skill git-commit -a cursor -a claude-code
 npx skills add walterra/agent-tools --skill post-mortem -a cursor -a claude-code
 npx skills add walterra/agent-tools --skill searxng-search -a cursor -a claude-code
 ```
 
 Some skills require setup after installation (e.g. `npm install` for skills with dependencies).
-`git-commit` and `post-mortem` are pure markdown and need no setup. For `searxng-search`:
+`git-commit` and `post-mortem` are pure markdown and need no setup. For skills with dependencies:
 
 ```bash
+cd ~/.cursor/skills/es-ingest && npm install
 cd ~/.cursor/skills/searxng-search && npm install
 ```
 

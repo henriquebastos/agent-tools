@@ -1,4 +1,4 @@
-# ES Transformer - Agent Skill
+# ES Ingest - Agent Skill
 
 Stream-based ingestion and transformation of large data files into Elasticsearch. Built on [node-es-transformer](https://github.com/walterra/node-es-transformer).
 
@@ -8,31 +8,31 @@ Stream-based ingestion and transformation of large data files into Elasticsearch
 
 ```bash
 # Using npx skills (recommended)
-npx skills add walterra/agent-tools --skill es-transformer
+npx skills add walterra/agent-tools --skill es-ingest
 
 # Or install manually
 git clone https://github.com/walterra/agent-tools.git
-cp -r agent-tools/packages/es-transformer ~/.cursor/skills/
-cd ~/.cursor/skills/es-transformer && npm install
+cp -r agent-tools/packages/es-ingest ~/.cursor/skills/
+cd ~/.cursor/skills/es-ingest && npm install
 ```
 
 ### Basic Usage
 
 ```bash
 # Ingest a JSON file
-~/.cursor/skills/es-transformer/scripts/ingest.js --file data.json --target my-index
+~/.cursor/skills/es-ingest/scripts/ingest.js --file data.json --target my-index
 
 # Ingest a CSV file
-~/.cursor/skills/es-transformer/scripts/ingest.js --file data.csv --source-format csv --target my-index
+~/.cursor/skills/es-ingest/scripts/ingest.js --file data.csv --source-format csv --target my-index
 
 # Reindex with transformation
-~/.cursor/skills/es-transformer/scripts/ingest.js \
+~/.cursor/skills/es-ingest/scripts/ingest.js \
   --source-index old-logs \
   --target new-logs \
   --transform transform.js
 
 # Cross-version migration (ES 8.x → 9.x)
-~/.cursor/skills/es-transformer/scripts/ingest.js \
+~/.cursor/skills/es-ingest/scripts/ingest.js \
   --source-index logs \
   --node https://es8.example.com:9200 --api-key $ES8_KEY \
   --target new-logs \
@@ -117,11 +117,11 @@ EOF
 
 | Agent | Install Path |
 |-------|--------------|
-| Cursor | `~/.cursor/skills/es-transformer` |
-| Claude Code | `~/.claude/skills/es-transformer` |
-| Codex | `~/.codex/skills/es-transformer` |
-| Pi | `~/.pi/agent/skills/es-transformer` |
-| Copilot | `~/.copilot/skills/es-transformer` |
+| Cursor | `~/.cursor/skills/es-ingest` |
+| Claude Code | `~/.claude/skills/es-ingest` |
+| Codex | `~/.codex/skills/es-ingest` |
+| Pi | `~/.pi/agent/skills/es-ingest` |
+| Copilot | `~/.copilot/skills/es-ingest` |
 
 ## Requirements
 

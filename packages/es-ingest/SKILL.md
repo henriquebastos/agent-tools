@@ -1,5 +1,5 @@
 ---
-name: es-transformer
+name: es-ingest
 description: Ingest and transform large data files (CSV/JSON) into Elasticsearch indices. Stream-based processing for files up to 30GB, cross-version migration (ES 8.x ↔ 9.x), custom JavaScript transformations, and reindexing with transforms. Use when you need to load data into Elasticsearch, migrate indices, or transform data during ingestion.
 metadata:
   version: "0.0.1"
@@ -7,7 +7,7 @@ metadata:
   repository: https://github.com/walterra/agent-tools
 ---
 
-# ES Transformer
+# ES Ingest
 
 Stream-based ingestion and transformation of large data files into Elasticsearch. Built on [node-es-transformer](https://github.com/walterra/node-es-transformer).
 
