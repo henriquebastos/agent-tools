@@ -33,7 +33,7 @@ function showUsage() {
   console.log('\nProcessing:');
   console.log('  --transform <file.js>    Transform function (export as default or module.exports)');
   console.log('  --query <file.json>      Query file to filter source documents');
-  console.log('  --source-format <fmt>    Source format: ndjson|csv (default: ndjson)');
+  console.log('  --source-format <fmt>    Source format: ndjson|csv|parquet|arrow (default: ndjson)');
   console.log('  --csv-options <file>     CSV parser options (JSON file)');
   console.log('  --skip-header            Skip first line (e.g., CSV header)');
   console.log('\nPerformance:');

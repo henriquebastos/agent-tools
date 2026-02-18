@@ -16,6 +16,7 @@ Stream-based ingestion and transformation of large data files into Elasticsearch
 - ✅ **Stream-based**: Handle very large files (20-30 GB tested) without running out of memory
 - ✅ **High throughput**: Up to 20k documents/second on commodity hardware
 - ✅ **Cross-version**: Seamlessly migrate between ES 8.x and 9.x
+- ✅ **Formats**: NDJSON, CSV, Parquet, Arrow IPC
 - ✅ **Transformations**: Apply custom JavaScript transforms during ingestion
 - ✅ **Reindexing**: Copy and transform existing indices
 - ✅ **Wildcards**: Ingest multiple files matching a pattern (e.g., `logs/*.json`)
@@ -58,7 +59,19 @@ cat data.csv | {baseDir}/scripts/ingest.js --stdin --source-format csv --target 
 {baseDir}/scripts/ingest.js --file users.csv --source-format csv --target users
 ```
 
-> CSV support requires node-es-transformer >= 1.1.0.
+### Ingest Parquet directly
+
+```bash
+{baseDir}/scripts/ingest.js --file users.parquet --source-format parquet --target users
+```
+
+### Ingest Arrow IPC directly
+
+```bash
+{baseDir}/scripts/ingest.js --file users.arrow --source-format arrow --target users
+```
+
+> CSV/Parquet/Arrow support requires node-es-transformer >= 1.2.0.
 
 ### Ingest CSV with parser options
 
@@ -167,7 +180,7 @@ cat data.csv | {baseDir}/scripts/ingest.js --stdin --source-format csv --target 
 ```bash
 --transform <file.js>    # Transform function (export as default or module.exports)
 --query <file.json>      # Query file to filter source documents
---source-format <fmt>    # Source format: ndjson|csv (default: ndjson)
+--source-format <fmt>    # Source format: ndjson|csv|parquet|arrow (default: ndjson)
 --csv-options <file>     # CSV parser options (JSON file)
 --skip-header            # Skip first line (e.g., CSV header)
 ```

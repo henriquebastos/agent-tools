@@ -25,6 +25,12 @@ cd ~/.cursor/skills/es-ingest && npm install
 # Ingest a CSV file
 ~/.cursor/skills/es-ingest/scripts/ingest.js --file data.csv --source-format csv --target my-index
 
+# Ingest a Parquet file
+~/.cursor/skills/es-ingest/scripts/ingest.js --file data.parquet --source-format parquet --target my-index
+
+# Ingest an Arrow IPC file
+~/.cursor/skills/es-ingest/scripts/ingest.js --file data.arrow --source-format arrow --target my-index
+
 # Reindex with transformation
 ~/.cursor/skills/es-ingest/scripts/ingest.js \
   --source-index old-logs \
@@ -44,7 +50,7 @@ cd ~/.cursor/skills/es-ingest && npm install
 - ✅ Handle large files (20-30 GB) without memory issues
 - ✅ High throughput (up to 20k docs/second)
 - ✅ Cross-version migration (ES 8.x ↔ 9.x)
-- ✅ CSV + NDJSON support (node-es-transformer >= 1.1.0)
+- ✅ NDJSON + CSV + Parquet + Arrow IPC support (node-es-transformer >= 1.2.0)
 - ✅ Custom JavaScript transformations
 - ✅ Document filtering and splitting
 - ✅ Wildcard file patterns
@@ -127,7 +133,7 @@ EOF
 
 - Node.js 22+
 - Elasticsearch 8.x or 9.x
-- node-es-transformer >= 1.1.0 for CSV support
+- node-es-transformer >= 1.2.0 for CSV/Parquet/Arrow support
 
 ## License
 
