@@ -67,3 +67,45 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Verify package tags and GitHub releases
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Published packages: ${PUBLISHED_PACKAGES}"
+
+          # Configure git identity for fallback annotated tags
+          git config user.name "walterra-dev-release[bot]"
+          git config user.email "249269583+walterra-dev-release[bot]@users.noreply.github.com"
+
+          echo "${PUBLISHED_PACKAGES}" | jq -c '.[]' | while read -r pkg; do
+            NAME=$(echo "$pkg" | jq -r '.name')
+            VERSION=$(echo "$pkg" | jq -r '.version')
+            TAG="${NAME}@${VERSION}"
+
+            echo "Ensuring tag and release exist for ${TAG}"
+
+            # Ensure local tag exists (fallback creation if missing)
+            if ! git rev-parse -q --verify "refs/tags/${TAG}" >/dev/null; then
+              git tag -a "${TAG}" "${GITHUB_SHA}" -m "${TAG}"
+            fi
+
+            # Ensure remote tag exists
+            if ! git ls-remote --exit-code --tags origin "refs/tags/${TAG}" >/dev/null 2>&1; then
+              git push origin "refs/tags/${TAG}"
+            fi
+
+            # Ensure GitHub release exists
+            if ! gh release view "${TAG}" >/dev/null 2>&1; then
+              gh release create "${TAG}" \
+                --verify-tag \
+                --target "${GITHUB_SHA}" \
+                --title "${TAG}" \
+                --notes "Automated release for ${TAG}"
+            fi
+          done
